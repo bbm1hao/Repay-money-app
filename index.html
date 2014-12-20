@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>给你的一封信。</title>
+    <meta name="author" content="Alvaro Trigo Lopez" />
+    <meta name="description" content="fullPage full-screen backgrounds." />
+    <meta name="keywords" content="fullpage,jquery,demo,screen,fullscreen,backgrounds,full-screen" />
+    <meta name="Resource-type" content="Document" />
+
+
+    <link rel="stylesheet" type="text/css" href="jquery.fullPage.css" />
+    <link rel="stylesheet" type="text/css" href="examples.css" />
+    <style>
+        /* Style for our header texts
+	* --------------------------------------- */
+        h1 {
+            font-size: 5em;
+            font-family: arial, helvetica;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        /* Centered texts in each section
+	* --------------------------------------- */
+        .section {
+            text-align: center;
+        }
+        /* Backgrounds will cover all the section
+	* --------------------------------------- */
+        #section0,
+        #section1,
+        #section2,
+        #section3,
+        #section4,
+        #section5 {
+            background-size: cover;
+        }
+        /* Defining each section background and styles
+	* --------------------------------------- */
+        #section0 {
+            background-image: url(imgs/b6.jpg);
+            padding: 20% 20% 0 0;
+        }
+        #section1 {
+            background-image: url(imgs/b2.jpg);
+            padding: 30% 0 0 0;
+        }
+        #section2 {
+            background-image: url(imgs/b5.jpg);
+            padding: 20% 0 0 0;
+        }
+        #section3 {
+            background-image: url(imgs/b4.jpeg);
+            padding: 50% 0 0 0;
+        }
+        #section4 {
+            background-image: url(imgs/b7.jpeg);
+            padding: 20% 0 0 20%;
+        }
+        #section5 {
+            background-image: url(imgs/b1.jpg);
+            padding: 26% 0 0 0;
+        }
+        #section0 p {
+            color: #fff;
+            font-weight: bolder
+        }
+        #section1 p {
+            color: #fff;
+            font-weight: bolder
+        }
+        #section2 p {
+            color: #eb00eb;
+            font-weight: bolder
+        }
+        #section3 p {
+            color: #5c08d0;
+            font-weight: bolder;
+            margin-top: 10px;
+        }
+        #section4 p {
+            color: #f0f;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #section5 p {
+            color: #ff1212;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        p {
+            font-size: 260%
+        }
+        .contact_form input {
+            height: 35px;
+            width: 188px;
+            width: 98%;
+            padding: 0px 0px 0px 8px;
+            font-size: 22px;
+            line-height: 1.8em;
+            display: inline;
+            margin: 10px 0;
+        }
+        .btnPink {
+            background: none repeat scroll 0 0 rgba(0, 0, 0, 0.63);
+            border-radius: 0.9em;
+            color: #FFFFFF !important;
+            display: inline-block;
+            font-size: 240%;
+            line-height: 1.8em;
+            margin: 0 3%;
+            text-align: center;
+            text-decoration: none;
+            width: 41%;
+        }
+    </style>
+
+    <!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+
+    <script type="text/javascript" src="jquery.fullPage.js"></script>
+    <script type="text/javascript" src="examples.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#fullpage').fullpage({
+                verticalCentered: false
+
+            });
+        });
+    </script>
+
+    <!--功能插件-->
+
+    <SCRIPT type="text/javascript">
+        String.prototype.replaceAll = function (s1, s2) {
+            return this.replace(new RegExp(s1, "gm"), s2);
+        }
+
+        function trim(str) {　　
+            return str.replace(/(^\s*)|(\s*$)/g, "");
+        }
+
+        function QueryString(item) {
+            var sValue = location.search.match(new RegExp("[\?\&]" + item + "=([^\&]*)(\&?)", "i"))
+            return sValue ? sValue[1] : sValue
+        }
+        var dusername = "某某公司 某总";
+        var lusername = QueryString("stra");
+
+        if (lusername) {
+            lusername = lusername.replaceAll("!", "%");
+            lusername = lusername.replaceAll("%21", "%");
+            lusername = unescape(lusername);
+            if (!lusername) {
+                lusername = dusername;
+            }
+        } else {
+            lusername = dusername;
+        }
+
+        function check() {
+            obj = trim(document.getElementById("stra").value);
+            if (unescape(obj) == '他的公司名字和姓名') obj = '某某公司 某总';
+            if (obj.length > 24) {
+                alert('太长');
+                return false;
+            }
+            if (obj.length == 0) {
+                alert('还没填名字呀!');
+                //document.getElementById("stra").focus();
+                return false;
+            }
+            obj = escape(obj).replaceAll("%", "!");
+            var url = "index.html?stra=" + obj;
+            //var url="http://www.3875.com/countdown/w4.html?stra="+obj;	
+
+            window.location.replace(url);
+            return false
+        }
+        
+        
+      document.addEventListener('WeixinJSBridgeReady',
+    function onBridgeReady() {
+        var share_content = $.dm.share.title;
+        var share_url = $.dm.share.url;
+        window.shareData = {
+            "imgUrl": $.dm.share.img,
+            "timeLineLink": share_url,
+            "sendFriendLink": share_url,
+            "weiboLink": share_url,
+            "tTitle": share_content,
+            "tContent": share_content,
+            "fTitle": $.dm.share._title,
+            "fContent": share_content,
+            "wContent": share_content,
+        };
+        // 发送给好友 
+        WeixinJSBridge.on('menu:share:appmessage',
+            function(argv) {
+                WeixinJSBridge.invoke('sendAppMessage', {
+                        "img_url": window.shareData.imgUrl,
+                        "link": window.shareData.sendFriendLink,
+                        "desc": window.shareData.fContent,
+                        "title": window.shareData.fTitle
+                    },
+                    function(res) {
+                        _report('send_msg', res.err_msg);
+                    })
+            });
+        // 分享到朋友圈 
+        WeixinJSBridge.on('menu:share:timeline',
+            function(argv) {
+                WeixinJSBridge.invoke('shareTimeline', {
+                        "img_url": window.shareData.imgUrl,
+                        "img_width": "640",
+                        "img_height": "640",
+                        "link": window.shareData.timeLineLink,
+                        "desc": window.shareData.tContent,
+                        "title": window.shareData.tTitle
+                    },
+                    function(res) {
+                        if (res.err_msg == 'share_timeline:ok') {
+
+                        }
+                        _report('timeline', res.err_msg);
+                    });
+            });
+        WeixinJSBridge.on('menu:share:weibo',
+            function(argv) {
+                WeixinJSBridge.invoke('shareWeibo', {
+                        "content": window.shareData.wContent,
+                        "url": window.shareData.weiboLink,
+                    },
+                    function(res) {
+                        _report('weibo', res.err_msg);
+                    });
+            });
+    },
+    false);
+  
+        
+    </SCRIPT>
+
+
+    <!--//功能插件-->
+    
+    
+    
+</head>
+
+
+<body>
+
+    <div id="fullpage">
+        <div class="section " id="section0">
+            <p>
+                亲爱的
+                <SCRIPT>
+                    document.write(lusername)
+                </SCRIPT>
+                <br>你还记得那个最信任我吗？
+                <br>我想你了，
+                <br>有话对你说 ：
+                <br>你曾经说
+                <br>最近在买房
+                <br>最近要买车
+                <br>最近在装修
+                <br>最近手头困难
+                <br>最近孩子要交学费
+                <br>最近又开了一家新店
+                <br>最近刚接了个新品牌
+                <br>最近要交房租
+                <br>最近又搞了一个新项目
+                <br>最近要给父母赡养费
+                <br>最近手头不宽裕
+                <br>最近..............
+                <br>问能否晚一些时间打款给我们</p>
+        </div>
+
+        <div class="section" id="section1">
+            <p>
+                <br>当时我是这样想的
+                <br>
+                <br>谁都有困难的时候
+                <br>
+                <br>帮别人摆脱困境别人会感激的
+                <br>
+                <br>你值得我信任
+                <br>
+                <br>近期我还能周转过来
+                <br>
+                <br>珍惜彼此的合作机会
+                <br>
+                <br>做有情有义的生意
+                <br>
+                <br>............................
+                <br>我们答应了你的欠款请求。
+
+
+            </p>
+
+
+        </div>
+        <div class="section" id="section2">
+            <p>
+                <br>。。。。。。
+                <br>一个月过去了
+                <br>------没收到款
+                <br>
+                <br>
+                <br>两个月过去了
+                <br>------没收到款
+                <br>
+                <br>
+                <br>六个月过去了
+                <br>------没收到款
+                <br>
+                <br>
+                <br>一年过去了
+                <br>——年过去了
+                <br>------依然没收到款
+
+
+
+            </p>
+
+        </div>
+        <div class="section" id="section3">
+            <p>
+                我想告诉你：
+                <br>
+            </p>
+            <p>我也不是一个人在战斗</p>
+            <p>父母要给钱赡养</p>
+            <p>老婆要穿衣吃饭</p>
+            <p>孩子要买奶粉订校服交学费</p>
+            <p>跟着干的员工要发工资</p>
+            <p>房租水电税务宽带电话要交费</p>
+            <p>夏天空调冬天取暖必须有</p>
+            <p>厂家发货要打款</p>
+            <p>四个轮子的要加油</p>
+            <p>发个货我还得给你付运费</p>
+            <p>.......................................</p>
+
+        </div>
+
+        <div class="section" id="section4">
+
+            <p>我不开银行</p>
+            <p>我不负责印钞</p>
+            <p>我只是一个小本生意</p>
+            <p>最后我只想说</p>
+            <p>在你最困难的时候我帮了你</p>
+            <p>我不需要感恩</p>
+            <p>尽管你有千种万种原因与理由</p>
+            <p>我只希望在我最难于周转的时候</p>
+            <p>把欠款打给我们吧！</p>
+            <p>请不要透支信誉！</p>
+            <p>请不要辜负别人对你的信任！</p>
+
+        </div>
+
+        <div class="section" id="section5">
+            <p>
+                朋友们
+                <br>你能帮我把这个信息转到亲爱的某某某吗？</p>
+            <p>你也有你想的说的话给你的朋友说嘛？
+                <br>请点击下面。。</p>
+            <div class="contact_form tacenter">
+                <form id="newinfo_form" name="newinfo_form" onsubmit="return check(this)">
+                    <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" value="他的公司名字和姓名" onClick="this.value=''" name="star" id="stra" maxlength="24" speech="" x-webkit-speech="" placeholder="他的公司名字和姓名">
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            <div class="pt10"></div>
+            <div class="btnBox" style="top:360px;">
+                <a class="btnPink" id="bj" href="javascript:void(0);" onClick="check()"><span>提交</span></a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
