@@ -115,6 +115,30 @@
             text-decoration: none;
             width: 41%;
         }
+        
+        
+        .btn_music {
+display: inline-block;
+width: 105px;
+height: 105px;
+background-size: 100% auto;
+position: absolute;
+left: 1em;
+top: 1em;
+background-image: url(http://gd4.alicdn.com/imgextra/i4/815440245/TB2o7WCbpXXXXbnXXXXXXXXXXXX-815440245.png);
+background-repeat: no-repeat;
+background-position: center center;
+            z-index: 1234;
+         
+            
+}
+
+
+        .btn_music.on {
+	background-image: url(http://gd2.alicdn.com/imgextra/i2/815440245/TB28VWsbpXXXXbhXpXXXXXXXXXX-815440245.png);
+}
+        
+        
     </style>
 
     <!--[if IE]>
@@ -170,7 +194,7 @@
         function check() {
             obj = trim(document.getElementById("stra").value);
             if (unescape(obj) == '他的公司名字和姓名') obj = '某某公司 某总';
-            if (obj.length > 24) {
+            if (obj.length > 99) {
                 alert('太长');
                 return false;
             }
@@ -200,8 +224,8 @@
             "tTitle": share_content,
             "tContent": share_content,
             "fTitle": $.dm.share._title,
-            "fContent": share_content,
-            "wContent": share_content,
+            "fContent": '给'+lusername+'一封信',
+            "wContent": '给'+lusername+'一封信',
         };
         // 发送给好友 
         WeixinJSBridge.on('menu:share:appmessage',
@@ -209,7 +233,7 @@
                 WeixinJSBridge.invoke('sendAppMessage', {
                         "img_url": window.shareData.imgUrl,
                         "link": window.shareData.sendFriendLink,
-                        "desc": window.shareData.fContent,
+                        "desc": '给'+lusername+'一封信',
                         "title": window.shareData.fTitle
                     },
                     function(res) {
@@ -224,7 +248,7 @@
                         "img_width": "640",
                         "img_height": "640",
                         "link": window.shareData.timeLineLink,
-                        "desc": window.shareData.tContent,
+                        "desc": '给'+lusername+'一封信',
                         "title": window.shareData.tTitle
                     },
                     function(res) {
@@ -247,8 +271,32 @@
     },
     false);
   
+ //音乐控制js
+var playbox = {
+	play: function(){
+		var src = $("#audio").attr("src");
+		var cls = $("#playbox").attr("class");
+		if(src!=""){
+			var audio = document.getElementById("audio"); 
+			if(cls=="btn_music"){
+				audio.play();
+				$("#playbox").removeAttr("class");
+				$("#playbox").attr("class", "btn_music on");
+			}else{
+				audio.pause();
+				$("#playbox").removeAttr("class");
+				$("#playbox").attr("class", "btn_music");
+			}
+			
+		}
+	}
+};
+        
         
     </SCRIPT>
+
+
+
 
 
     <!--//功能插件-->
@@ -259,9 +307,18 @@
 
 
 <body>
-
+<!--
+<audio id="myaudio" src="music.mp3" controls="controls" loop="false" hidden="true" autoplay="autoplay"  >
+</audio>
+  <input type="button" onclick="autoPlay()" value="播放"/>
+-->
+   
+<span id="playbox" onclick="playbox.play();return false;" class="btn_music on">
+   <audio src="http://smp3.569.com/countdown/dingdang.mp3" loop="" id="audio" autoplay="autoplay"></audio>
+</span>
+   
     <div id="fullpage">
-        <div class="section " id="section0">
+        <div class="section " id="section0" onclick="audio.play();" >
             <p>
                 亲爱的
                 <SCRIPT>
@@ -381,7 +438,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <input type="text" value="他的公司名字和姓名" onClick="this.value=''" name="star" id="stra" maxlength="24" speech="" x-webkit-speech="" placeholder="他的公司名字和姓名">
+                                    <input type="text" value="他的公司名字和姓名" onClick="this.value=''" name="star" id="stra" maxlength="99" speech="" x-webkit-speech="" placeholder="他的公司名字和姓名">
                                 </td>
                             </tr>
 
