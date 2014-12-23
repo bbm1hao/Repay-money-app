@@ -115,30 +115,41 @@
             text-decoration: none;
             width: 41%;
         }
-        
-        
         .btn_music {
-display: inline-block;
-width: 105px;
-height: 105px;
-background-size: 100% auto;
-position: absolute;
-left: 1em;
-top: 1em;
-background-image: url(http://gd4.alicdn.com/imgextra/i4/815440245/TB2o7WCbpXXXXbnXXXXXXXXXXXX-815440245.png);
-background-repeat: no-repeat;
-background-position: center center;
+            display: inline-block;
+            width: 105px;
+            height: 105px;
+            background-size: 100% auto;
+            position: absolute;
+            left: 1em;
+            top: 1em;
+            background-image: url(imgs/1.png);
+            background-repeat: no-repeat;
+            background-position: center center;
             z-index: 1234;
-         
-            
-}
-
-
+        }
         .btn_music.on {
-	background-image: url(http://gd2.alicdn.com/imgextra/i2/815440245/TB28VWsbpXXXXbhXpXXXXXXXXXX-815440245.png);
-}
-        
-        
+            background-image: url(imgs/2.png);
+        }
+        /*        分享*/
+        #mcover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 20000;
+        }
+        #mcover img {
+            position: fixed;
+            right: 18px;
+            top: 5px;
+            width: 260px!important;
+            height: 180px!important;
+            z-index: 20001;
+        }
     </style>
 
     <!--[if IE]>
@@ -162,9 +173,15 @@ background-position: center center;
         });
     </script>
 
-    <!--功能插件-->
+
+
+   
+    
 
     <SCRIPT type="text/javascript">
+        
+     
+       <!--功能插件--> 
         String.prototype.replaceAll = function (s1, s2) {
             return this.replace(new RegExp(s1, "gm"), s2);
         }
@@ -204,17 +221,60 @@ background-position: center center;
                 return false;
             }
             obj = escape(obj).replaceAll("%", "!");
-            var url = "index.html?stra=" + obj;
+            window.url = "index.html?stra=" + obj;
             //var url="http://www.3875.com/countdown/w4.html?stra="+obj;	
 
-            window.location.replace(url);
+          
+            window.location.replace(window.url);
             return false
         }
+
+        //转到url
+        function fenxiang() {
+              document.getElementById('mcover').style.display = 'block';
+        };
+
+
+
+
+         //音乐控制js
+        var playbox = {
+            play: function () {
+                var src = $("#audio").attr("src");
+                var cls = $("#playbox").attr("class");
+                if (src != "") {
+                    var audio = document.getElementById("audio");
+                    if (cls == "btn_music") {
+                        audio.play();
+                        $("#playbox").removeAttr("class");
+                        $("#playbox").attr("class", "btn_music on");
+                    } else {
+                        audio.pause();
+                        $("#playbox").removeAttr("class");
+                        $("#playbox").attr("class", "btn_music");
+                    }
+
+                }
+            }
+        };
         
+//微信分享 
         
-      document.addEventListener('WeixinJSBridgeReady',
+$.dm = $.dm || {};
+sharename = escape(lusername).replaceAll("%","!");
+$(document).ready(function() {
+$.dm.share = {
+			_title: lusername+'您收到一封信。',
+			title: lusername+'您收到一封信。',
+			img: 'http://95777.site.weiyd.cn/sites/import/public/styles/money/imgs/101.gif',
+			url: 'http://95777.site.weiyd.cn/sites/import/public/styles/money/index.html?stra='+sharename
+		}
+});
+
+        
+        document.addEventListener('WeixinJSBridgeReady',
     function onBridgeReady() {
-        var share_content = $.dm.share.title;
+        var share_content = lusername+'您收到一封信';
         var share_url = $.dm.share.url;
         window.shareData = {
             "imgUrl": $.dm.share.img,
@@ -224,8 +284,8 @@ background-position: center center;
             "tTitle": share_content,
             "tContent": share_content,
             "fTitle": $.dm.share._title,
-            "fContent": '给'+lusername+'一封信',
-            "wContent": '给'+lusername+'一封信',
+            "fContent": share_content,
+            "wContent": share_content,
         };
         // 发送给好友 
         WeixinJSBridge.on('menu:share:appmessage',
@@ -233,7 +293,7 @@ background-position: center center;
                 WeixinJSBridge.invoke('sendAppMessage', {
                         "img_url": window.shareData.imgUrl,
                         "link": window.shareData.sendFriendLink,
-                        "desc": '给'+lusername+'一封信',
+                        "desc": window.shareData.fContent,
                         "title": window.shareData.fTitle
                     },
                     function(res) {
@@ -248,7 +308,7 @@ background-position: center center;
                         "img_width": "640",
                         "img_height": "640",
                         "link": window.shareData.timeLineLink,
-                        "desc": '给'+lusername+'一封信',
+                        "desc": window.shareData.tContent,
                         "title": window.shareData.tTitle
                     },
                     function(res) {
@@ -270,28 +330,7 @@ background-position: center center;
             });
     },
     false);
-  
- //音乐控制js
-var playbox = {
-	play: function(){
-		var src = $("#audio").attr("src");
-		var cls = $("#playbox").attr("class");
-		if(src!=""){
-			var audio = document.getElementById("audio"); 
-			if(cls=="btn_music"){
-				audio.play();
-				$("#playbox").removeAttr("class");
-				$("#playbox").attr("class", "btn_music on");
-			}else{
-				audio.pause();
-				$("#playbox").removeAttr("class");
-				$("#playbox").attr("class", "btn_music");
-			}
-			
-		}
-	}
-};
-        
+
         
     </SCRIPT>
 
@@ -300,25 +339,25 @@ var playbox = {
 
 
     <!--//功能插件-->
-    
-    
-    
+
+
+
 </head>
 
 
 <body>
-<!--
+    <!--
 <audio id="myaudio" src="music.mp3" controls="controls" loop="false" hidden="true" autoplay="autoplay"  >
 </audio>
   <input type="button" onclick="autoPlay()" value="播放"/>
 -->
-   
-<span id="playbox" onclick="playbox.play();return false;" class="btn_music on">
+
+    <span id="playbox" onclick="playbox.play();return false;" class="btn_music on">
    <audio src="http://smp3.569.com/countdown/dingdang.mp3" loop="" id="audio" autoplay="autoplay"></audio>
 </span>
-   
+
     <div id="fullpage">
-        <div class="section " id="section0" onclick="audio.play();" >
+        <div class="section " id="section0" onclick="audio.play();">
             <p>
                 亲爱的
                 <SCRIPT>
@@ -449,13 +488,15 @@ var playbox = {
             </div>
             <div class="pt10"></div>
             <div class="btnBox" style="top:360px;">
-                <a class="btnPink" id="bj" href="javascript:void(0);" onClick="check()"><span>提交</span></a>
+                <a class="btnPink" id="bj" href="javascript:void(0);" onClick="fenxiang()"><span>提交</span></a>
             </div>
 
         </div>
 
     </div>
-
+    <div id="mcover" onclick="check();" style="display:none;">
+        <img src="imgs/guide7c30.png">
+    </div>
 </body>
 
 </html>
